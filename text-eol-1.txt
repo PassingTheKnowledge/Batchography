@@ -1,0 +1,8 @@
+; This is a comment
+Hello
+; Another comment
+From
+; Once more
+The other end of the world
+; More comment
+ohayou gozaimasu

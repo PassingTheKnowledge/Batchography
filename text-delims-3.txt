@@ -1,0 +1,4 @@
+This is line 1, read in full
+This is line 2, read in full
+This is line 3, with the delimiter on purpose¿this is the second token
+This is line 4

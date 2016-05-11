@@ -1,0 +1,21 @@
+This is a simple example file
+With a few lines
+123
+Of Various formats
+//<Begin
+Line 1
+Line 2
+Line 3
+//>End
+This line contains a fox
+This line contains a chicken
+And this one contains a bird
+456
+module!offset: 0f 00 00 00 00 00 00 00 00 01
+kernel32!77441122: 00 00 00 00 00 00 00 00 00 02
+user32!6A112233: 00 00 00 00 00 00 00 00 00 03
+@echo Directive 1
+@echo Directive 2
+@echo Directive 3
+789
+Some other lines

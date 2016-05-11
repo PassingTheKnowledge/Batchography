@@ -1,0 +1,6 @@
+:step-create-files
+:step-process-files
+:step-create-report
+:step-compress
+:step-email
+:step-done

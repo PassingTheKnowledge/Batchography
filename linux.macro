@@ -1,0 +1,5 @@
+ls=dir $*
+pwd=echo ^%cd^%
+cp=copy $*
+mv=move $*
+traceroute=tracert $*
