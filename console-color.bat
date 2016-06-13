@@ -1,5 +1,6 @@
 @echo off
 
+
 setlocal enabledelayedexpansion
 
 title Dynamic menu example - changing console colors interactively
