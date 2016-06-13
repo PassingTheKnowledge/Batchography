@@ -1,5 +1,9 @@
 @echo off
 
+::
+:: (c) Elias Bachaalany <lallousz-x86@yahoo.com>
+:: Batchography: The Art of Batch Files Programming
+::
 
 setlocal enabledelayedexpansion
 
