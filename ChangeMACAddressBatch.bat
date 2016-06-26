@@ -89,16 +89,26 @@
 :: Command line handler to list all detected adapters
 ::
 :cmdline-list-adapters <1=iset> <2=iinfo>
-	echo.
-	echo Adapters friendly names list:
-	echo -------------------------------
+	setlocal
+	if not defined DEVMODE (
+		echo.
+		echo Adapters friendly names list:
+		echo -------------------------------
+	)
 
 	:: For each interface, return the physical address and the adapter name
 	for /f "tokens=2 delims=.=" %%a in ('set %~1.') do (
-		set __t=!%~2[%%a].mac!
-		echo MAC Address: [!__t!] ^| Adapter name: %%a
-	)
+		set __mac=!%~2[%%a].mac!
+		set __wireless=!%~2[%%a].wireless!
+		set __state=!%~2[%%a].state!
 
+		if defined DEVMODE (
+			echo !__mac!^|!__wireless!^|!__state!^|%%a
+		) else (
+			echo MAC Address: [!__mac!] ^| Adapter name: %%a
+		)
+	)
+	endlocal
 	goto :eof
 
 :: --------------------------------------------------------------------------
@@ -469,6 +479,12 @@
 			set __t=!__var:*adapter %~2:=!
 			if "!__t!" NEQ "!__var!" (
 				set /a __stage=1
+				if "!__var:~0,8!"=="Wireless" (
+					set __t=1
+				) else (
+					set __t=0
+				)
+				set %~1[%~2].wireless=!__t!
 			)
 		)
 		if !__stage! EQU 1 (
