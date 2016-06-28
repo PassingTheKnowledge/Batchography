@@ -1,13 +1,14 @@
 @echo off
 ::
 :: Hangman Game
-:: Batchography book by Elias Bachaalany
+:: (c) Batchography book - by Elias Bachaalany
 ::
 cls
 setlocal enabledelayedexpansion
+title Hangman game - Batchography book - by Elias Bachaalany
 
+:: --------------------------------------------------------------------------
 :start
-
 	:: Test selector
 	if not "%1"=="" (
 		call :test-%1 2>nul || (
@@ -20,6 +21,7 @@ setlocal enabledelayedexpansion
 	call :PlayGame
 	goto :eof
 
+:: --------------------------------------------------------------------------
 :PlayGame
 	:PlayGame-Again
 	call :get-random-line words-sat300.txt word
@@ -29,16 +31,11 @@ setlocal enabledelayedexpansion
 	choice /c:yn /m "Do you want to play more?"
 	if "%ERRORLEVEL%" EQU "1" goto PlayGame-Again
 
+	pause
 	goto :eof
 	
 
-::
-:: Test the game
-::
-:test-Game
-	call :Game "More light"
-	EXIT /B 0
-
+:: --------------------------------------------------------------------------
 ::
 :: Game loop
 :: 
@@ -95,32 +92,8 @@ setlocal enabledelayedexpansion
 	endlocal
 	EXIT /b 1
 
-::
-:: Test letter revelation functions
-::
-:test-reveal-letters
-	setlocal
-	set word=hello elias
-	echo The word is: '%word%'
-	call :init-word-bits "%word%" bits
-	echo InitBits=%bits%
 
-	call :reveal-letters "%word%" bits _ rev
-	echo Reveal nothing = %rev%
-
-	call :reveal-letters "%word%" bits l rev
-	echo Reveal 'l' = %rev%
-
-	call :reveal-letters "%word%" bits e rev
-	echo Reveal 'e' = %rev%
-
-	call :reveal-letters "%word%" bits h rev
-	echo Reveal 'h' = %rev%
-
-	endlocal
-	exit /b 0
-
-
+:: --------------------------------------------------------------------------
 ::
 :: Reveal letters in a word
 ::
@@ -179,16 +152,8 @@ setlocal enabledelayedexpansion
 		exit /b %NbReveal%
 	)
 	
-	
-::
-:: Test the init word bits function
-::
-:test-init-word-bits
-	call :init-word-bits "123" v
-	echo bits=%v%
 
-	exit /b 0
-
+:: --------------------------------------------------------------------------
 ::
 :: Initialize the word bits. Create the corresponding empty bits
 ::
@@ -211,18 +176,7 @@ setlocal enabledelayedexpansion
 	)
 
 
-::
-:: Test the draw hangman function
-::
-:test-draw-hangman
-
-	for /l %%i in (1,1, 5) DO (
-		echo =========== step %%i ================
-		call :draw-hangman %%i
-	)
-	goto :eof
-
-
+:: --------------------------------------------------------------------------
 ::
 :: Draw the hangman in progression
 :: 
@@ -278,14 +232,7 @@ setlocal enabledelayedexpansion
 
 	exit /b 0
 
-::
-:: Test the get random line
-:: 
-:test-get-random-line
-	call :get-random-line words-sat300.txt w
-	echo word=%w%
-	exit /b 0
-
+:: --------------------------------------------------------------------------
 ::
 :: Get random line
 :: 
@@ -316,6 +263,7 @@ setlocal enabledelayedexpansion
 	)
 
 
+:: --------------------------------------------------------------------------
 ::
 :: Compute string length
 ::
@@ -335,5 +283,73 @@ setlocal enabledelayedexpansion
         exit /b %len%
     )
 
+:: --------------------------------------------------------------------------
+:: Terminate the script using a syntax error
+:: 
 :TermScript
 if
+
+
+:: --------------------------------------------------------------------------
+:: All tests
+
+::
+:: Test the game
+::
+:test-Game
+	call :Game "More light"
+	EXIT /B 0
+	
+::
+:: Test the init word bits function
+::
+:test-init-word-bits
+	call :init-word-bits "123" v
+	echo bits=%v%
+
+	exit /b 0
+
+::
+:: Test letter revelation functions
+::
+:test-reveal-letters
+	setlocal
+	set word=hello elias
+	echo The word is: '%word%'
+	call :init-word-bits "%word%" bits
+	echo InitBits=%bits%
+
+	call :reveal-letters "%word%" bits _ rev
+	echo Reveal nothing = %rev%
+
+	call :reveal-letters "%word%" bits l rev
+	echo Reveal 'l' = %rev%
+
+	call :reveal-letters "%word%" bits e rev
+	echo Reveal 'e' = %rev%
+
+	call :reveal-letters "%word%" bits h rev
+	echo Reveal 'h' = %rev%
+
+	endlocal
+	exit /b 0
+
+
+::
+:: Test the draw hangman function
+::
+:test-draw-hangman
+
+	for /l %%i in (1,1, 5) DO (
+		echo =========== step %%i ================
+		call :draw-hangman %%i
+	)
+	goto :eof
+
+::
+:: Test the get random line
+:: 
+:test-get-random-line
+	call :get-random-line words-sat300.txt w
+	echo word=%w%
+	exit /b 0
