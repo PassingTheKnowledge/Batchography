@@ -16,7 +16,6 @@ setlocal enabledelayedexpansion
     echo Inspired by the book "Batchography: The Art of Batch Files Programming"
     echo.
 
-
     :: Default language is English
     set KEYCONTENT=Key Content
     set ALL_PROFILES=All User Profile
