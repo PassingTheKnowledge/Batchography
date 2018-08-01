@@ -20,20 +20,25 @@ setlocal enabledelayedexpansion
     set KEYCONTENT=Key Content
     set ALL_PROFILES=All User Profile
 
-    :: Detect the language
-    for /F "usebackq tokens=3" %%a IN (`reg query "hklm\system\controlset001\control\nls\language" /v Installlanguage`) DO (
-        :: 0409 English ; 0407 German ; 040C French ; 0C0A Spanish
-        :: https://docs.microsoft.com/en-us/previous-versions/office/developer/speech-technologies/hh361638(v=office.14)
-        set lang_id=%%a
+    ::
+    :: Detect the language (1033 English ; 1036 French)
+    :: See https://technet.microsoft.com/en-us/library/cc287874(v=office.12).aspx
+    ::
+
+    for /F "usebackq tokens=*" %%a IN (`wmic os get OSLanguage /Value`) DO (
+        set _line=%%a
+        if "!_line:~0,10!"=="OSLanguage" (
+            set lang_id=!_line:~11!
+        )
     )
 
-    if "%lang_id%"=="0409" (
-        echo English operating system language detected
-    ) else if "%lang_id%" == "040C" (
+    if "%lang_id%"=="1033" (
+        echo English operating system language detected!
+    ) else if "%lang_id%" == "1036" (
         set KEYCONTENT=Contenu de la cl
         set ALL_PROFILES=Profil Tous les utilisateurs
 
-        echo French operating system language detected
+        echo French operating system language detected!
     ) else (
         echo Warning: Unknown operating system language detected! The script might not work correctly!
     )
