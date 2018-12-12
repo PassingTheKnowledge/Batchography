@@ -22,8 +22,8 @@
     title Batchography - Python auto re-interpreting '%FN%'
 
     :repeat
-        :: Get the file date/time, size and attributes
-        for %%a in (%FN%) do set fdate=%%~ta.%%~za.%%~aa
+        :: Get the file date/time (incl. seconds)
+        for /f "delims=" %%i in ('"forfiles /m %FN% /c "cmd /c echo @ftime" "') do set fdate=%%i
 
         :: Different attributes found?
         if not "%last_fdate%"=="%fdate%" (
