@@ -11,25 +11,26 @@
     setlocal
 
     if "%1"=="" goto :help
-    if not exist "%1" (
+    if not exist "%~1" (
         echo Input file '%1' not found
         goto :eof
     )
 
-    set FN=%1
     set last_fdate=x
 
-    title Batchography - Python auto re-interpreting '%FN%'
+    title Batchography - Python auto re-interpreting '%~1'
+    pushd "%~dp1"
 
     :repeat
         :: Get the file date/time (incl. seconds)
-        for /f "delims=" %%i in ('"forfiles /m %FN% /c "cmd /c echo @ftime" "') do set fdate=%%i
+        for /f "delims=" %%i in ('"forfiles /m "%~nx1" /c "cmd /c echo @ftime" "') do set fdate=%%i
 
         :: Different attributes found?
         if not "%last_fdate%"=="%fdate%" (
             cls
+            rem echo ftime=%fdate%
             :: Re-interpret
-            call python "%FN%"
+            call python "%~nx1"
         )
 
         :: Remember the new date/time
