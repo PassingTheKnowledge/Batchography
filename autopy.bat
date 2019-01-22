@@ -46,5 +46,5 @@
         goto repeat
 
 :help
-    echo Auto Python reinterpreter takes the input file name to autocompile as an argument
+    echo Auto Python reinterpreter takes the input file name to auto re-interpret as an argument
     goto :eof
