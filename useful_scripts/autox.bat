@@ -18,11 +18,14 @@
 
     set do_cls=
     set do_showftime=
+    set extra_args=
+    set cmd_args=
 
     :: Take the required arguments
     set cmd_name=%~1
     shift
-    set lang_name=%~2
+
+    set lang_name=%~1
     shift
 
     :: Parse the optional arguments
@@ -33,6 +36,12 @@
             set do_showftime=1
         ) else if "%1" == "/delay" (
             set /a do_delay=%~2
+            shift
+        ) else if "%1" == "/args" (
+            set extra_args=%~2
+            shift
+        ) else if "%1" == "/cmdargs" (
+            set cmd_args=%~2
             shift
         ) else goto :break
 
@@ -52,7 +61,7 @@
 
     set last_fdate=x
 
-    title Batchography - %lang_name% auto re-interpreting '%~1'
+    title Batchography - %lang_name% auto re-interpreting '%~1' (press 'q' to quit)
     pushd "%~dp1"
 
     :repeat
@@ -65,7 +74,7 @@
             if defined do_showftime echo ftime=%fdate%
 
             :: Re-interpret
-            call "%cmd_name%" "%~1"
+            call "%cmd_name%" %cmd_args% "%~1" %extra_args%
         )
 
         :: Remember the new date/time
@@ -83,8 +92,9 @@
 :help
     echo Usage: autox 1=CommandName 2=LangName 3=Optional_Options FileName
     echo Optional arguments:
-    echo   /cls          clear the screen before auto-interpreting
-    echo   /showftime    show the file time stamp before auto-interpreting
-    echo   /delay nsecs  the delay before auto-interpreting. default is %do_delay% second.
-
+    echo   /cls               clear the screen before auto-interpreting
+    echo   /showftime         show the file time stamp before auto-interpreting
+    echo   /delay nsecs       the delay before auto-interpreting. default is %do_delay% second.
+    echo   /cmdargs           optional additional arguments to be passed to the command
+    echo   /args "arg1 arg2"  optional additional arguments to be passed to the filename
     goto :eof
