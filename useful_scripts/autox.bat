@@ -32,20 +32,24 @@
     :parse_args
         if "%1"=="/cls" (
             set do_cls=1
+            shift
         ) else if "%1" == "/showftime" (
             set do_showftime=1
+            shift
         ) else if "%1" == "/delay" (
             set /a do_delay=%~2
+            shift
             shift
         ) else if "%1" == "/args" (
             set extra_args=%~2
             shift
+            shift
         ) else if "%1" == "/cmdargs" (
             set cmd_args=%~2
             shift
+            shift
         ) else goto :break
 
-        shift
         goto :parse_args
 
     :break
