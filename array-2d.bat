@@ -1,6 +1,6 @@
 @echo off
 
-setlocal
+setlocal enabledelayedexpansion
 
 set TABLE[0][0]=Elias
 set TABLE[0][1]=Ashmole
