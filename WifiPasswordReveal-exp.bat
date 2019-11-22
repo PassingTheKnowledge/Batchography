@@ -21,7 +21,7 @@ setlocal enabledelayedexpansion
     set ALL_PROFILES=All User Profile
 
     ::
-    :: Detect the language (1033 English ; 1036 French)
+    :: Detect the language (1033 English ; 1034 Spanish ; 1036 French ; 1040 Italian)
     :: See https://technet.microsoft.com/en-us/library/cc287874(v=office.12).aspx
     ::
 
@@ -34,11 +34,22 @@ setlocal enabledelayedexpansion
 
     if "%lang_id%"=="1033" (
         echo English operating system language detected!
+
+    ) else if "%lang_id%" == "1034" (
+        set KEYCONTENT=Contenido de la clave
+        set ALL_PROFILES=Perfil de todos los usuarios
+	    echo Spanish operating system language detected!
+
     ) else if "%lang_id%" == "1036" (
         set KEYCONTENT=Contenu de la cl
         set ALL_PROFILES=Profil Tous les utilisateurs
-
         echo French operating system language detected!
+
+    ) else if "%lang_id%" == "1040" (
+        set KEYCONTENT=Contenuto chiave
+        set ALL_PROFILES=Tutti i profili utente
+	    echo Italian operating system language detected!
+
     ) else (
         echo Warning: Unknown operating system language detected! The script might not work correctly!
     )
